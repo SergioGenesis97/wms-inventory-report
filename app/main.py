@@ -15,6 +15,6 @@ def obtener_inventario():
 
 @app.get("/reporte")
 def obtener_reporte_detallado():
-    datos = read_file('files/stock.csv')
+    datos = read_file('data/stock.csv')
     txt_reporte = make_report(datos)
     return {"reporte_completo": txt_reporte}
