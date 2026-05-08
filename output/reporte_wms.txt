@@ -1,0 +1,7 @@
+
+===== REPORTE DE INVENTARIO =====
+SKU001 | 5 unidades | Reabastecer
+SKU002 | 80 unidades | Stock Suficiente
+SKU003 | 15 unidades | Stock Bajo
+================================
+CRÍTICOS (reabastecer): SKU001
