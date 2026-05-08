@@ -12,7 +12,3 @@ def read_file(path: str) -> dict:
         reader = csv.DictReader(file)
 
         return {row['sku']: int(row['cantidad']) for row in reader}
-        
-
-
-print(read_file('files/stock.csv'))
