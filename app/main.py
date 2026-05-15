@@ -27,4 +27,9 @@ async def upload_inventoy(file: UploadFile = File(...)):
     texto = contenido.decode("utf-8")
     reader = csv.DictReader(io.StringIO(texto))
     inventario = {row['sku']: int(row['cantidad']) for row in reader}
-    return inventario
+    reporte_final = make_report(inventario)
+    return {
+        "filename": file.filename,
+        "reporte": reporte_final
+    }
+    
