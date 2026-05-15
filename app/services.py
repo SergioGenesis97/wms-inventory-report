@@ -1,10 +1,19 @@
 #Clasifica el inventario
 def classify_stock(quantity: int) -> str:
-    return "Reabastecer" if quantity < 10 else ("Stock Bajo" if quantity <= 50 else "Stock Suficiente")
+    if quantity < 10:
+        return "Reabastecer"
+    elif quantity <= 50:
+        return "Stock Bajo"
+    else:
+        return "Stock Suficiente"
 
 
 # Realiza el repore del inventario
 def make_report(inventory: dict) -> str:
+    reporte = {"resumen": "Reporte completo..."}
+    reporte["detalles"] = []
+    reporte["conteo"] = {}
+
     report = "\n===== REPORTE DE INVENTARIO =====\n"
     critical = []
     for sku, quantity in inventory.items():
@@ -12,9 +21,17 @@ def make_report(inventory: dict) -> str:
         if estado == 'Reabastecer':
             critical.append(sku)
         report += f"{sku} | {quantity} unidades | {estado}\n"
+
+        reporte["detalles"].append({"sku":sku, "cantidad":int(quantity), "estado":estado})
+        if estado not in reporte["conteo"]:
+            reporte["conteo"][estado] = 1
+        else:
+            reporte["conteo"][estado] += 1
+
     report += "================================\n"
     report += f"CRÍTICOS (reabastecer): {', '.join(critical)}\n"
-
+    
+    print(reporte)
     return report
 
 #Guarda el archivo de forma física
