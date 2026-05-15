@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WMS Inventory Report</title>
+    <style>
+        body{ font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto;}
+        h1{ color: #2c3e50;}
+        input, button{ margin-top: 10px; padding: 8px;}
+        button{background: "2c3e50"; color: white; border: none; cursor: pointer;}
+        pre{background: #f4f4f4; padding: 15px;border-radius: 5px;}
+    </style>
+</head>
+<body>
+    <h1> WMS Inventory Report </h1>
+    <p> Sube tu archivo CSV para generar el reporte de stock. </p>
+
+    <form id="uploadForm">
+        <input type="file" id="csvFile" accept=".csv" required>
+        <br>
+        <button type="submit">Generar Reporte</button>
+    </form>
+
+    <pre id="resultado">El reporte aparecerá aquí...</pre>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData();
+            formData.append('file', document.getElementById('csvFile').files[0]);
+
+            const response = await fetch('/upload-inventory', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+            document.getElementById('resultado').textContent = data.reporte;
+        });
+
+    </script>
+</body>
+</html>

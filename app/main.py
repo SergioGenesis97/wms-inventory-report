@@ -1,14 +1,19 @@
 from fastapi import FastAPI, UploadFile, File
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi import Request
+
 import csv
 import io
 from app.data_handler import read_file
 from app.services import make_report
 
 app = FastAPI()
+templates = Jinja2Templates(directory="templates")
 
-@app.get("/")
-def home():
-    return {"mensaje": "API Funcionando"}
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 @app.get("/inventario")
 def obtener_inventario():
